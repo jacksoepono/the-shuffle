@@ -793,11 +793,41 @@ async function getDevices() {
   return data?.devices || [];
 }
 
-async function playSong(trackUri, deviceId) {
-  await spotifyFetch('/me/player/play' + (deviceId ? `?device_id=${deviceId}` : ''), {
+async function transferPlayback(deviceId) {
+  await spotifyFetch('/me/player', {
     method: 'PUT',
+    body: JSON.stringify({ device_ids: [deviceId], play: false }),
+  });
+  // Give Spotify a moment to transfer
+  await sleep(500);
+}
+
+async function playSong(trackUri, deviceId) {
+  // First try to play
+  const res = await fetch(`https://api.spotify.com/v1/me/player/play${deviceId ? `?device_id=${deviceId}` : ''}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({ uris: [trackUri] }),
   });
+  
+  // If 404 (no active device), try to transfer first
+  if (res.status === 404 && deviceId) {
+    console.log('No active device, transferring playback...');
+    await transferPlayback(deviceId);
+    await sleep(1000);
+    // Retry play
+    await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ uris: [trackUri] }),
+    });
+  }
 }
 
 async function pausePlayback() {
@@ -1053,13 +1083,85 @@ async function startCountdown() {
   revealedSongs = [];
   phase = 'idle';
   
-  // Check for active Spotify device
+  // Check for active Spotify devices
   const devices = await getDevices();
-  if (devices.length > 0) {
-    currentDeviceId = devices[0].id;
+  
+  if (devices.length === 0) {
+    // No devices found — show help
+    showScreen('countdown');
+    const content = document.getElementById('countdown-content');
+    content.innerHTML = `
+      <div style="text-align:center;animation:fadeUp 0.5s ease-out;max-width:320px;">
+        <div style="font-size:48px;margin-bottom:16px;">📱</div>
+        <h3 style="font-size:18px;margin-bottom:12px;">Open Spotify on your phone</h3>
+        <p style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:8px;">
+          We need Spotify running so we can play the songs. Open the Spotify app and <strong>play any song for a few seconds</strong>, then come back here.
+        </p>
+        <p style="font-size:13px;color:var(--text3);line-height:1.5;margin-bottom:28px;">
+          Don't just open the app — actually press play on something. This activates the connection.
+        </p>
+        <button class="btn-primary" onclick="retryDevices()" style="max-width:100%;">
+          I've done that — try again
+        </button>
+        <button class="btn-secondary" onclick="showScreen('lobby')" style="max-width:100%;">
+          ← Back to lobby
+        </button>
+      </div>
+    `;
+    return;
   }
   
-  showScreen('countdown');
+  // If one device, use it. If multiple, let user pick.
+  if (devices.length === 1) {
+    currentDeviceId = devices[0].id;
+    await transferPlayback(currentDeviceId);
+    showScreen('countdown');
+    renderCountdownState();
+  } else {
+    showScreen('countdown');
+    const content = document.getElementById('countdown-content');
+    content.innerHTML = `
+      <div style="text-align:center;animation:fadeUp 0.5s ease-out;max-width:320px;width:100%;">
+        <div style="font-size:36px;margin-bottom:12px;">🔊</div>
+        <h3 style="font-size:18px;margin-bottom:4px;">Where should we play?</h3>
+        <p style="font-size:13px;color:var(--text3);margin-bottom:24px;">Pick which device plays the music</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${devices.map(d => `
+            <button onclick="selectDevice('${d.id}')" style="
+              display:flex;align-items:center;gap:12px;
+              padding:16px;background:var(--surface);border:1px solid var(--border);
+              border-radius:12px;color:var(--text);font-family:inherit;
+              font-size:15px;cursor:pointer;text-align:left;width:100%;
+            ">
+              <span style="font-size:20px;">${d.type === 'Smartphone' ? '📱' : d.type === 'Computer' ? '💻' : d.type === 'Speaker' ? '🔊' : '🎵'}</span>
+              <div>
+                <div style="font-weight:600;">${d.name}</div>
+                <div style="font-size:12px;color:var(--text3);">${d.type}${d.is_active ? ' · Active' : ''}</div>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+}
+
+async function retryDevices() {
+  const devices = await getDevices();
+  if (devices.length === 0) {
+    alert('Still no devices found. Make sure Spotify is open and you\'ve played a song recently, then try again.');
+    return;
+  }
+  currentDeviceId = devices[0].id;
+  await transferPlayback(currentDeviceId);
+  phase = 'idle';
+  renderCountdownState();
+}
+
+async function selectDevice(deviceId) {
+  currentDeviceId = deviceId;
+  await transferPlayback(deviceId);
+  phase = 'idle';
   renderCountdownState();
 }
 
