@@ -24,6 +24,10 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .btn-secondary{width:100%;max-width:320px;padding:16px 24px;background:transparent;border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:'Outfit',sans-serif;font-size:16px;font-weight:500;cursor:pointer}
 .btn-spotify{width:100%;max-width:320px;padding:16px 24px;background:var(--green);border:none;border-radius:var(--radius);color:#fff;font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 24px #1DB95433}
 .btn-small{padding:10px 20px;background:var(--surface2);border:none;border-radius:10px;color:var(--text2);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer}
+.btn-start{width:100%;max-width:320px;padding:18px 24px;background:var(--accent);border:none;border-radius:var(--radius);color:#fff;font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 0 20px var(--accent-glow),0 0 60px #ff4d0022;transition:box-shadow 0.3s}
+.btn-start:active{transform:scale(0.97)}
+@keyframes glowRadiate{0%,100%{box-shadow:0 0 20px var(--accent-glow),0 0 40px #ff4d0015}50%{box-shadow:0 0 30px #ff4d0055,0 0 80px #ff4d0025}}
+.btn-start{animation:glowRadiate 2s ease-in-out infinite}
 #screen-lobby{padding:24px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 #screen-lobby::-webkit-scrollbar{display:none}
 .lobby-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
@@ -71,11 +75,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .song-meta{flex:1;min-width:0}
 .song-title{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .song-artist{font-size:12px;color:var(--text2);margin-top:2px}
-.song-check{width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;color:#fff}
+.song-check{width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
 .pick-footer{position:fixed;bottom:0;left:0;right:0;padding:16px 20px;padding-bottom:max(16px,env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%)}
 .pick-footer .btn-primary{max-width:100%}
-#screen-countdown{align-items:center;justify-content:center;padding:40px 24px;position:relative}
-.countdown-topbar{position:absolute;top:20px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:center;z-index:10}
+#screen-countdown{align-items:center;justify-content:center;padding:40px 24px;position:relative;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#screen-countdown::-webkit-scrollbar{display:none}
+.countdown-topbar{position:fixed;top:0;left:0;right:0;padding:20px;display:flex;justify-content:space-between;align-items:center;z-index:10;background:linear-gradient(var(--bg),transparent)}
 .countdown-topbar .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--text3)}
 .countdown-center{text-align:center;width:100%}
 .announce-label{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.25em;color:var(--text3);text-transform:uppercase;margin-bottom:20px;animation:fadeUp 0.4s ease-out}
@@ -99,15 +104,15 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .progress-bar{width:100%;height:3px;background:var(--surface2);border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:var(--text);border-radius:2px;transition:width 1s linear}
 .progress-times{display:flex;justify-content:space-between;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)}
-.countdown-progress{width:100%;max-width:280px;margin:0 auto 32px}
+.countdown-progress{width:100%;max-width:280px;margin:0 auto 24px}
 .countdown-progress .track{width:100%;height:3px;background:var(--surface);border-radius:2px;overflow:hidden;margin-bottom:8px}
 .countdown-progress .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width 0.5s ease}
 .countdown-progress .label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);text-align:center}
-.big-play{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#cc3d00);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 30px var(--accent-glow)}
+.big-play{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#cc3d00);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 30px var(--accent-glow);margin:0 auto}
 .big-play:active{transform:scale(0.93)}
 .big-play svg{width:36px;height:36px;fill:#fff}
-.reveal-hint{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-top:16px;letter-spacing:0.1em}
-.revealed-ticker{position:absolute;bottom:20px;left:16px;right:16px;display:flex;gap:8px;overflow-x:auto;padding-bottom:max(4px,env(safe-area-inset-bottom))}
+.reveal-hint{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-top:16px;letter-spacing:0.1em;text-align:center}
+.revealed-ticker{position:fixed;bottom:0;left:16px;right:16px;display:flex;gap:8px;overflow-x:auto;padding:12px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:5}
 .revealed-ticker::-webkit-scrollbar{display:none}
 .ticker-chip{flex-shrink:0;display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px}
 .ticker-chip .pos{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3)}
@@ -129,7 +134,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .history-meta{flex:1;min-width:0}
 .history-song-title{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .history-song-artist{font-size:12px;color:var(--text2);margin-top:1px}
-.finished-wrap{text-align:center;width:100%;animation:fadeUp 0.6s ease-out;overflow-y:auto;max-height:90vh;padding-bottom:40px}
+.finished-wrap{text-align:center;width:100%;animation:fadeUp 0.6s ease-out;padding-bottom:40px}
 .finished-wrap::-webkit-scrollbar{display:none}
 .finished-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.25em;color:var(--text3);margin-bottom:10px}
 .finished-title{font-size:28px;font-weight:700;margin-bottom:4px;background:linear-gradient(135deg,var(--accent2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -150,13 +155,22 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .intro-big-number{font-family:'JetBrains Mono',monospace;font-size:160px;font-weight:800;line-height:1;color:var(--accent);animation:numberPop 0.5s cubic-bezier(0.34,1.56,0.64,1)}
 .intro-text{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase}
 .spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto}
+/* Resume history inline */
+.resume-history{margin-top:24px;text-align:left;max-width:320px;width:100%}
+.resume-history-header{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--text3);margin-bottom:12px;text-align:center}
+.resume-history-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1e1e1e44}
+.resume-history-item .rh-pos{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);width:28px;text-align:right;flex-shrink:0}
+.resume-history-item .rh-art{width:36px;height:36px;border-radius:5px;overflow:hidden;flex-shrink:0;background:var(--surface2)}
+.resume-history-item .rh-art img{width:100%;height:100%;object-fit:cover}
+.resume-history-item .rh-meta{flex:1;min-width:0}
+.resume-history-item .rh-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.resume-history-item .rh-artist{font-size:11px;color:var(--text2)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes numberPop{0%{transform:scale(2.5) rotate(-8deg);opacity:0}60%{transform:scale(1.05) rotate(1deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideFromBottom{from{transform:translateY(100%)}to{transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 </style>
 </head>
 <body>
@@ -172,63 +186,31 @@ Connect with Spotify</button>
 </div>
 </div>
 <div id="screen-lobby" class="screen">
-<div class="lobby-header">
-<button class="back-btn" onclick="goHome()">← Back</button>
-<button class="countdown-name-btn" id="countdown-name-btn" onclick="editCountdownName()">Road Trip Shuffle</button>
-</div>
+<div class="lobby-header"><button class="back-btn" onclick="goHome()">← Back</button><button class="countdown-name-btn" id="countdown-name-btn" onclick="editCountdownName()">Road Trip Shuffle</button></div>
 <h2 class="lobby-title">The Lineup</h2>
 <p class="lobby-subtitle" id="lobby-subtitle"></p>
-<div class="songs-config">
-<label>Songs per person</label>
-<select id="songs-per-user" onchange="updateSongsPerUser()">
-<option value="1">1</option><option value="2">2</option><option value="3">3</option>
-<option value="4">4</option><option value="5" selected>5</option><option value="6">6</option>
-<option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
-</select>
-</div>
-<div class="add-player-row">
-<input type="text" id="new-player-name" placeholder="Add a friend's name..." maxlength="20">
-<button class="btn-small" onclick="addPlayer()" style="background:var(--accent);color:#fff;">Add</button>
-</div>
+<div class="songs-config"><label>Songs per person</label><select id="songs-per-user" onchange="updateSongsPerUser()"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected>5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div>
+<div class="add-player-row"><input type="text" id="new-player-name" placeholder="Add a friend's name..." maxlength="20"><button class="btn-small" onclick="addPlayer()" style="background:var(--accent);color:#fff;">Add</button></div>
 <div class="player-list" id="player-list"></div>
 <div id="lobby-actions"></div>
 </div>
 <div id="screen-pick" class="screen">
-<div class="pick-header">
-<button class="back-btn" onclick="showScreen('lobby')">← Back</button>
-<span class="pick-user" id="pick-user"></span>
-</div>
-<div class="pick-count">
-<span class="big-num" id="pick-count-num">0</span>
-<span class="label">of <span id="pick-count-total">5</span><br>selected</span>
-<span style="flex:1"></span>
-<button class="btn-small" id="lock-in-btn" onclick="lockInSongs()" style="display:none;background:var(--accent);color:#fff;">Lock In</button>
-</div>
+<div class="pick-header"><button class="back-btn" onclick="showScreen('lobby')">← Back</button><span class="pick-user" id="pick-user"></span></div>
+<div class="pick-count"><span class="big-num" id="pick-count-num">0</span><span class="label">of <span id="pick-count-total">5</span><br>selected</span><span style="flex:1"></span><button class="btn-small" id="lock-in-btn" onclick="lockInSongs()" style="display:none;background:var(--accent);color:#fff;">Lock In</button></div>
 <div id="selected-strip" class="selected-strip"></div>
-<div class="search-wrap">
-<span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
-<input type="text" id="search-input" placeholder="Search Spotify..." oninput="debounceSearch()">
-</div>
+<div class="search-wrap"><span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span><input type="text" id="search-input" placeholder="Search Spotify..." oninput="debounceSearch()"></div>
 <div class="song-list" id="song-list"></div>
-<div class="pick-footer" id="pick-footer" style="display:none;">
-<button class="btn-primary" id="pick-footer-btn" onclick="lockInSongs()" disabled>Select more songs</button>
-</div>
+<div class="pick-footer" id="pick-footer" style="display:none;"><button class="btn-primary" id="pick-footer-btn" onclick="lockInSongs()" disabled>Select more songs</button></div>
 </div>
 <div id="screen-countdown" class="screen">
-<div class="countdown-topbar">
-<span class="brand" id="countdown-brand">THE SHUFFLE</span>
-<button class="btn-small" onclick="toggleHistory()">History</button>
-</div>
+<div class="countdown-topbar"><span class="brand" id="countdown-brand">THE SHUFFLE</span><button class="btn-small" onclick="toggleHistory()">History</button></div>
 <div class="countdown-center" id="countdown-content"></div>
 <div class="revealed-ticker" id="revealed-ticker"></div>
 </div>
 <div class="history-overlay" id="history-overlay" onclick="toggleHistory()"></div>
 <div class="history-panel" id="history-panel">
 <div class="history-handle"></div>
-<div class="history-header">
-<h3>Revealed Songs</h3>
-<button class="history-close" onclick="toggleHistory()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-</div>
+<div class="history-header"><h3>Revealed Songs</h3><button class="history-close" onclick="toggleHistory()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
 <div class="history-list" id="history-list"></div>
 </div>
 <svg style="display:none">
@@ -243,96 +225,171 @@ const REDIRECT_URI=window.location.hostname==='127.0.0.1'?`http://127.0.0.1:${wi
 const SCOPES='user-read-playback-state user-modify-playback-state user-read-currently-playing streaming user-read-email user-read-private';
 const PLAYER_COLORS=['#E07A5F','#3D85C6','#6AA84F','#F1C232','#9B59B6','#E74C3C','#1ABC9C','#E67E22'];
 const MAX_TOTAL=100;
+// Curated default search queries for song picker
+const DEFAULT_QUERIES=['Sabrina Carpenter','Billie Eilish','Olivia Rodrigo','Harry Styles','Zach Bryan','Olivia Dean','Tyla','Chappell Roan','Hozier','Dua Lipa'];
 let accessToken=null,spotifyUser=null,players=[],songsPerUser=5,countdownName='Road Trip Shuffle';
 let currentPickerIndex=0,selectedSongs=[],submissions={};
 let countdownList=[],revealedSongs=[],currentPosition=0,phase='idle';
-let isRevealing=false,searchTimeout=null,currentDeviceId=null;
-let wakeLock=null,progressInterval=null,isPaused=false,djScripts=[];
+let searchTimeout=null,currentDeviceId=null;
+let wakeLock=null,progressInterval=null,isPaused=false;
 let autoAdvanceAbort=false;
+// Last revealed song info for "that was..." display
+let lastRevealedSong=null;
 
-const DJ_INTROS=[
-(p,s,u)=>`Coming in at number ${p}. ${u} reckons this one's a certified banger. Let's see about that. It's ${s.name} by ${s.artists[0].name}.`,
-(p,s,u)=>`Alright number ${p}. ${u} threw this one in and honestly? Bold choice. Here's ${s.artists[0].name} with ${s.name}.`,
-(p,s,u)=>`At ${p} we've got a submission from ${u}. No one asked for this but here it is anyway. ${s.name} by ${s.artists[0].name}.`,
-(p,s,u)=>`Number ${p}! ${u} has been waiting for this moment. The song? ${s.name} by ${s.artists[0].name}. Make of that what you will.`,
-(p,s,u)=>`Sliding in at number ${p}, it's ${s.name}. ${s.artists[0].name}. This one's on ${u}. Blame them accordingly.`,
-(p,s,u)=>`Number ${p}. ${u} really said trust me on this one. It's ${s.name} by ${s.artists[0].name}. We'll be the judge.`,
-(p,s,u)=>`${p}! And look, ${u}'s picked ${s.name} by ${s.artists[0].name}. The car has opinions about this. Moving on.`,
-(p,s,u)=>`Coming in HOT at number ${p}. ${u} with ${s.name}. ${s.artists[0].name}. The vibe has shifted. I repeat, the vibe has shifted.`,
-(p,s,u)=>`Number ${p} and ${u} is sweating. Why? Because they submitted ${s.name} by ${s.artists[0].name} and they know they'll be judged.`,
-(p,s,u)=>`At number ${p}, straight from ${u}'s questionable music taste. ${s.name} by ${s.artists[0].name}. Let it ride.`,
-(p,s,u)=>`${p}. Deep breath everyone. ${u} submitted ${s.name} by ${s.artists[0].name} and they look weirdly confident about it.`,
-(p,s,u)=>`AND AT ${p}. ${u}. ${s.name}. ${s.artists[0].name}. That's all I'm gonna say about that.`,
-];
-const DJ_ONE=[(s,u)=>`AND YOUR NUMBER ONE! Submitted by ${u}! It's ${s.name} by ${s.artists[0].name}! ${u} TAKES THE CROWN! Absolutely undeserving! Absolute scenes!`,(s,u)=>`THE MOMENT YOU'VE ALL BEEN WAITING FOR. Number one goes to ${u} with ${s.name} by ${s.artists[0].name}. The undisputed, undefeated, completely undeserving champion!`,(s,u)=>`At number one. ${u} with ${s.name} by ${s.artists[0].name}. The algorithm has spoken. ${u} is officially the main character.`];
-function getDJScript(pos,song,name){if(pos===1)return DJ_ONE[Math.floor(Math.random()*DJ_ONE.length)](song,name);return DJ_INTROS[Math.floor(Math.random()*DJ_INTROS.length)](pos,song,name);}
-function speakDJ(text){return new Promise(r=>{if(!('speechSynthesis' in window)){r();return;}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.rate=1.05;u.pitch=0.95;const v=window.speechSynthesis.getVoices();const p=v.find(x=>x.name.includes('Daniel')||x.name.includes('Google UK English Male')||x.name.includes('Samantha'));if(p)u.voice=p;u.onend=r;u.onerror=r;window.speechSynthesis.speak(u);setTimeout(r,15000);})}
-function generateAllDJScripts(){djScripts=countdownList.map((s,i)=>{const pos=countdownList.length-i;return getDJScript(pos,s,s.submittedBy);});}
-async function requestWakeLock(){try{if('wakeLock' in navigator){wakeLock=await navigator.wakeLock.request('screen');}}catch(e){}}
-function releaseWakeLock(){if(wakeLock){wakeLock.release();wakeLock=null;}}
-function saveSession(){try{localStorage.setItem('shuffle_session',JSON.stringify({players,songsPerUser,countdownName,submissions,countdownList,revealedSongs,currentPosition,phase,djScripts,ts:Date.now()}));}catch(e){}}
+/* ═══ SPOTIFY AUTH ═══ */
+function rng(n){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';const v=crypto.getRandomValues(new Uint8Array(n));return v.reduce((a,x)=>a+c[x%c.length],'');}
+async function sha256(p){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));}
+function b64u(b){return btoa(String.fromCharCode(...new Uint8Array(b))).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');}
+async function loginSpotify(){const v=rng(64);localStorage.setItem('code_verifier',v);const ch=b64u(await sha256(v));window.location=`https://accounts.spotify.com/authorize?${new URLSearchParams({response_type:'code',client_id:CLIENT_ID,scope:SCOPES,code_challenge_method:'S256',code_challenge:ch,redirect_uri:REDIRECT_URI})}`;}
+async function handleCallback(){const code=new URLSearchParams(window.location.search).get('code');if(!code)return false;const r=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:CLIENT_ID,grant_type:'authorization_code',code,redirect_uri:REDIRECT_URI,code_verifier:localStorage.getItem('code_verifier')})});const d=await r.json();if(d.access_token){accessToken=d.access_token;localStorage.setItem('spotify_token',accessToken);localStorage.setItem('spotify_token_time',Date.now().toString());window.history.replaceState({},document.title,'/');return true;}return false;}
+async function api(ep,o={}){const r=await fetch(`https://api.spotify.com/v1${ep}`,{...o,headers:{'Authorization':`Bearer ${accessToken}`,'Content-Type':'application/json',...o.headers}});if(r.status===204)return null;if(r.status===401){localStorage.removeItem('spotify_token');showScreen('home');return null;}if(!r.ok)return null;return r.json();}
+async function getUser(){return api('/me');}
+async function search(q){if(!q.trim())return[];const d=await api(`/search?q=${encodeURIComponent(q)}&type=track&limit=10`);return d?.tracks?.items||[];}
+async function getDevices(){const d=await api('/me/player/devices');return d?.devices||[];}
+async function transfer(id){await api('/me/player',{method:'PUT',body:JSON.stringify({device_ids:[id],play:false})});await sleep(500);}
+async function play(uri,did){const url=`https://api.spotify.com/v1/me/player/play${did?`?device_id=${did}`:''}`;const o={method:'PUT',headers:{'Authorization':`Bearer ${accessToken}`,'Content-Type':'application/json'},body:JSON.stringify({uris:[uri]})};let r=await fetch(url,o);if(r.status===404&&did){await transfer(did);await sleep(1000);await fetch(url,o);}}
+async function pause(){try{await api('/me/player/pause',{method:'PUT'});}catch(e){}}
+async function getState(){return api('/me/player');}
+
+/* ═══ SESSION ═══ */
+function saveSession(){try{localStorage.setItem('shuffle_session',JSON.stringify({players,songsPerUser,countdownName,submissions,countdownList,revealedSongs,currentPosition,phase,lastRevealedSong,ts:Date.now()}));}catch(e){}}
 function loadSession(){try{const r=localStorage.getItem('shuffle_session');if(!r)return null;const s=JSON.parse(r);if(Date.now()-s.ts>86400000){clearSession();return null;}return s;}catch(e){return null;}}
 function clearSession(){localStorage.removeItem('shuffle_session');}
-function resumeSession(s){players=s.players;songsPerUser=s.songsPerUser;countdownName=s.countdownName;submissions=s.submissions;countdownList=s.countdownList;revealedSongs=s.revealedSongs;currentPosition=s.currentPosition;phase=s.phase;djScripts=s.djScripts||[];if(['announcing','playing','idle'].includes(phase)&&countdownList.length>0){if(phase==='playing'||phase==='announcing')phase='idle';showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;renderCountdownState();requestWakeLock();}else if(phase==='finished'){showScreen('countdown');renderCountdownState();}else{document.getElementById('songs-per-user').value=songsPerUser;document.getElementById('countdown-name-btn').textContent=countdownName;renderLobby();showScreen('lobby');}}
-function generateRandomString(n){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';const v=crypto.getRandomValues(new Uint8Array(n));return v.reduce((a,x)=>a+c[x%c.length],'');}
-async function sha256(p){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));}
-function base64url(b){return btoa(String.fromCharCode(...new Uint8Array(b))).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');}
-async function loginSpotify(){const v=generateRandomString(64);localStorage.setItem('code_verifier',v);const ch=base64url(await sha256(v));const p=new URLSearchParams({response_type:'code',client_id:CLIENT_ID,scope:SCOPES,code_challenge_method:'S256',code_challenge:ch,redirect_uri:REDIRECT_URI});window.location=`https://accounts.spotify.com/authorize?${p}`;}
-async function handleCallback(){const code=new URLSearchParams(window.location.search).get('code');if(!code)return false;const r=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:CLIENT_ID,grant_type:'authorization_code',code,redirect_uri:REDIRECT_URI,code_verifier:localStorage.getItem('code_verifier')})});const d=await r.json();if(d.access_token){accessToken=d.access_token;localStorage.setItem('spotify_token',accessToken);localStorage.setItem('spotify_token_time',Date.now().toString());window.history.replaceState({},document.title,'/');return true;}return false;}
-async function spotifyFetch(ep,o={}){const r=await fetch(`https://api.spotify.com/v1${ep}`,{...o,headers:{'Authorization':`Bearer ${accessToken}`,'Content-Type':'application/json',...o.headers}});if(r.status===204)return null;if(r.status===401){localStorage.removeItem('spotify_token');showScreen('home');updateHomeButton();return null;}if(!r.ok)return null;return r.json();}
-async function getSpotifyUser(){return await spotifyFetch('/me');}
-async function searchTracks(q){if(!q.trim())return[];const d=await spotifyFetch(`/search?q=${encodeURIComponent(q)}&type=track&limit=10`);return d?.tracks?.items||[];}
-async function getDevices(){const d=await spotifyFetch('/me/player/devices');return d?.devices||[];}
-async function transferPlayback(id){await spotifyFetch('/me/player',{method:'PUT',body:JSON.stringify({device_ids:[id],play:false})});await sleep(500);}
-async function playSong(uri,did){const url=`https://api.spotify.com/v1/me/player/play${did?`?device_id=${did}`:''}`;const o={method:'PUT',headers:{'Authorization':`Bearer ${accessToken}`,'Content-Type':'application/json'},body:JSON.stringify({uris:[uri]})};let r=await fetch(url,o);if(r.status===404&&did){await transferPlayback(did);await sleep(1000);await fetch(url,o);}}
-async function pausePlayback(){await spotifyFetch('/me/player/pause',{method:'PUT'});}
-async function getPlaybackState(){return await spotifyFetch('/me/player');}
+
+/* ═══ WAKE LOCK ═══ */
+async function requestWakeLock(){try{if('wakeLock' in navigator)wakeLock=await navigator.wakeLock.request('screen');}catch(e){}}
+function releaseWakeLock(){if(wakeLock){wakeLock.release();wakeLock=null;}}
+
+/* ═══ SCREENS ═══ */
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(`screen-${id}`).classList.add('active');}
-function goHome(){if(phase==='playing'||phase==='announcing'){pausePlayback();isPaused=true;saveSession();}if(accessToken){renderLobby();showScreen('lobby');}else showScreen('home');}
-function updateHomeButton(){const a=document.getElementById('home-action');if(accessToken&&spotifyUser){a.innerHTML=`<button class="btn-spotify" onclick="initLobby()" style="background:var(--green);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Continue as ${spotifyUser.display_name||'You'}</button>`;}}
+function goHome(){if(phase==='playing'||phase==='announcing'||phase==='wrapup'){pause();isPaused=true;autoAdvanceAbort=true;saveSession();}if(accessToken){renderLobby();showScreen('lobby');}else showScreen('home');}
+function updateHomeButton(){const a=document.getElementById('home-action');if(accessToken&&spotifyUser)a.innerHTML=`<button class="btn-spotify" onclick="initLobby()" style="background:var(--green);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Continue as ${spotifyUser.display_name||'You'}</button>`;}
 function getInitials(n){return n.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();}
+
+/* ═══ LOBBY ═══ */
 function initLobby(){if(players.length===0)players=[{name:spotifyUser?.display_name||'You',color:PLAYER_COLORS[0],initials:getInitials(spotifyUser?.display_name||'You')}];document.getElementById('countdown-name-btn').textContent=countdownName;document.getElementById('songs-per-user').value=songsPerUser;renderLobby();showScreen('lobby');}
 function editCountdownName(){const n=prompt('Name your countdown:',countdownName);if(n&&n.trim()){countdownName=n.trim();document.getElementById('countdown-name-btn').textContent=countdownName;}}
 function updateSongsPerUser(){const v=parseInt(document.getElementById('songs-per-user').value);const mx=Math.min(10,Math.floor(MAX_TOTAL/Math.max(players.length,1)));songsPerUser=Math.min(v,mx);document.getElementById('songs-per-user').value=songsPerUser;submissions={};renderLobby();}
 function addPlayer(){const input=document.getElementById('new-player-name');const name=input.value.trim();if(!name||players.length>=20)return;if(players.find(p=>p.name.toLowerCase()===name.toLowerCase()))return;players.push({name,color:PLAYER_COLORS[players.length%PLAYER_COLORS.length],initials:getInitials(name)});input.value='';const mx=Math.min(10,Math.floor(MAX_TOTAL/players.length));if(songsPerUser>mx){songsPerUser=mx;document.getElementById('songs-per-user').value=songsPerUser;}renderLobby();}
 document.getElementById('new-player-name').addEventListener('keydown',e=>{if(e.key==='Enter')addPlayer();});
 function removePlayer(i){if(i===0)return;players.splice(i,1);renderLobby();}
-function renderLobby(){const t=players.length*songsPerUser;document.getElementById('lobby-subtitle').textContent=`${songsPerUser} song${songsPerUser>1?'s':''} each · ${players.length} player${players.length>1?'s':''} · ${t} song countdown`;const list=document.getElementById('player-list');list.innerHTML=players.map((p,i)=>{const sub=!!submissions[p.name];return`<div class="player-card ${sub?'submitted':''}"><div class="player-avatar" style="background:${p.color};">${p.initials}</div><div class="player-info"><div class="player-name">${p.name}${i===0?' (you)':''}</div><div class="player-status ${sub?'done':''}">${sub?songsPerUser+' songs locked in':'Waiting to pick...'}</div></div>${!sub&&i>0?`<button class="remove-btn" onclick="removePlayer(${i})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`:''}</div>`;}).join('');const actions=document.getElementById('lobby-actions');const allSub=players.length>=2&&players.every(p=>submissions[p.name]);const next=players.find(p=>!submissions[p.name]);if(allSub)actions.innerHTML=`<button class="btn-primary" onclick="startCountdown()" style="max-width:100%;animation:pulse 2s infinite;">START THE COUNTDOWN</button>`;else if(next&&players.length>=2)actions.innerHTML=`<button class="btn-primary" onclick="startPicking('${next.name.replace(/'/g,"\\'")}')" style="max-width:100%;">Pick Songs as ${next.name}</button>`;else actions.innerHTML=`<p style="text-align:center;color:var(--text3);font-size:13px;padding:12px 0;">Add at least one friend to start</p>`;}
+function renderLobby(){const t=players.length*songsPerUser;document.getElementById('lobby-subtitle').textContent=`${songsPerUser} song${songsPerUser>1?'s':''} each · ${players.length} player${players.length>1?'s':''} · ${t} song countdown`;const list=document.getElementById('player-list');list.innerHTML=players.map((p,i)=>{const sub=!!submissions[p.name];return`<div class="player-card ${sub?'submitted':''}"><div class="player-avatar" style="background:${p.color};">${p.initials}</div><div class="player-info"><div class="player-name">${p.name}${i===0?' (you)':''}</div><div class="player-status ${sub?'done':''}">${sub?songsPerUser+' songs locked in':'Waiting to pick...'}</div></div>${!sub&&i>0?`<button class="remove-btn" onclick="removePlayer(${i})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`:''}</div>`;}).join('');const actions=document.getElementById('lobby-actions');const allSub=players.length>=2&&players.every(p=>submissions[p.name]);const next=players.find(p=>!submissions[p.name]);if(allSub)actions.innerHTML=`<button class="btn-start" onclick="startCountdown()">START THE COUNTDOWN</button>`;else if(next&&players.length>=2)actions.innerHTML=`<button class="btn-primary" onclick="startPicking('${next.name.replace(/'/g,"\\'")}')" style="max-width:100%;">Pick Songs as ${next.name}</button>`;else actions.innerHTML=`<p style="text-align:center;color:var(--text3);font-size:13px;padding:12px 0;">Add at least one friend to start</p>`;}
+
+/* ═══ PICKER ═══ */
 function startPicking(name){currentPickerIndex=players.findIndex(p=>p.name===name);selectedSongs=[];document.getElementById('search-input').value='';showDefaultSongs();updatePickerUI();showScreen('pick');}
-function showDefaultSongs(){const l=document.getElementById('song-list');l.innerHTML='<div style="padding:20px 0;"><div class="spinner"></div></div>';searchTracks('top hits 2026').then(t=>{if(t.length>0){l._tracks=t;renderSearchResults(t);}else l.innerHTML='<p style="text-align:center;color:var(--text3);padding:40px 0;font-size:14px;">Search for songs above</p>';});}
+async function showDefaultSongs(){const l=document.getElementById('song-list');l.innerHTML='<div style="padding:20px 0;"><div class="spinner"></div></div>';const q=DEFAULT_QUERIES[Math.floor(Math.random()*DEFAULT_QUERIES.length)];const t=await search(q);if(t.length>0){l._tracks=t;renderSearchResults(t);}else l.innerHTML='<p style="text-align:center;color:var(--text3);padding:40px 0;font-size:14px;">Search for songs above</p>';}
 function updatePickerUI(){const p=players[currentPickerIndex];document.getElementById('pick-user').innerHTML=`<span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:20px;height:20px;border-radius:50%;background:${p.color};display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;">${p.initials}</span>${p.name}'s picks</span>`;document.getElementById('pick-count-num').textContent=selectedSongs.length;document.getElementById('pick-count-total').textContent=songsPerUser;document.getElementById('lock-in-btn').style.display=selectedSongs.length===songsPerUser?'block':'none';document.getElementById('selected-strip').innerHTML=selectedSongs.map((s,i)=>`<div class="selected-chip" onclick="deselectSong(${i})"><img src="${s.album?.images?.[2]?.url||s.album?.images?.[0]?.url||''}" alt=""><span>${s.name.length>18?s.name.substring(0,18)+'...':s.name}</span><span style="opacity:0.6;margin-left:2px;">×</span></div>`).join('');const f=document.getElementById('pick-footer'),b=document.getElementById('pick-footer-btn'),rem=songsPerUser-selectedSongs.length;f.style.display='block';if(rem>0){b.disabled=true;b.textContent=`Select ${rem} more song${rem>1?'s':''}`;}else{b.disabled=false;b.textContent=`Lock In ${songsPerUser} Songs`;b.onclick=lockInSongs;}}
 function debounceSearch(){clearTimeout(searchTimeout);searchTimeout=setTimeout(doSearch,350);}
-async function doSearch(){const q=document.getElementById('search-input').value;if(!q.trim()){showDefaultSongs();return;}document.getElementById('song-list').innerHTML='<div style="padding:40px 0;"><div class="spinner"></div></div>';const t=await searchTracks(q);document.getElementById('song-list')._tracks=t;renderSearchResults(t);}
+async function doSearch(){const q=document.getElementById('search-input').value;if(!q.trim()){showDefaultSongs();return;}document.getElementById('song-list').innerHTML='<div style="padding:40px 0;"><div class="spinner"></div></div>';const t=await search(q);document.getElementById('song-list')._tracks=t;renderSearchResults(t);}
 function renderSearchResults(tracks){const l=document.getElementById('song-list');if(!tracks.length){l.innerHTML='<p style="text-align:center;color:var(--text3);padding:40px 0;font-size:14px;">No results found</p>';return;}l.innerHTML=tracks.map(t=>{const sel=selectedSongs.find(s=>s.id===t.id);const dis=!sel&&selectedSongs.length>=songsPerUser;const art=t.album?.images?.[1]?.url||t.album?.images?.[0]?.url||'';return`<div class="song-item ${sel?'selected':''} ${dis?'disabled':''}" onclick="toggleSong('${t.id}')"><div class="song-art">${art?`<img src="${art}">`:'<div style="width:100%;height:100%;background:var(--surface2);"></div>'}</div><div class="song-meta"><div class="song-title">${t.name}</div><div class="song-artist">${t.artists.map(a=>a.name).join(', ')}</div></div>${sel?'<div class="song-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>':''}</div>`;}).join('');l._tracks=tracks;}
 function toggleSong(id){const tracks=document.getElementById('song-list')._tracks||[];const t=tracks.find(x=>x.id===id);if(!t)return;const idx=selectedSongs.findIndex(s=>s.id===id);if(idx>=0)selectedSongs.splice(idx,1);else if(selectedSongs.length<songsPerUser)selectedSongs.push(t);updatePickerUI();renderSearchResults(tracks);}
 function deselectSong(i){selectedSongs.splice(i,1);updatePickerUI();const l=document.getElementById('song-list');if(l._tracks)renderSearchResults(l._tracks);}
 function lockInSongs(){if(selectedSongs.length!==songsPerUser)return;const p=players[currentPickerIndex];submissions[p.name]=selectedSongs.map(s=>({...s,submittedBy:p.name,submittedByColor:p.color,submittedByInitials:p.initials}));selectedSongs=[];renderLobby();showScreen('lobby');}
+
+/* ═══ COUNTDOWN ═══ */
 function shuffleArray(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-async function startCountdown(){const all=Object.values(submissions).flat();countdownList=shuffleArray(all);currentPosition=countdownList.length;revealedSongs=[];phase='idle';autoAdvanceAbort=false;generateAllDJScripts();const devices=await getDevices();if(devices.length===0){showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;showNoDeviceScreen();return;}if(devices.length===1){currentDeviceId=devices[0].id;await transferPlayback(currentDeviceId);}else{showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;showDevicePicker(devices);return;}showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;await requestWakeLock();saveSession();await playCinematicIntro();}
-function showNoDeviceScreen(){document.getElementById('countdown-content').innerHTML=`<div style="text-align:center;max-width:320px;animation:fadeUp 0.5s ease-out;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.5" style="margin-bottom:16px;"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg><h3 style="font-size:18px;margin-bottom:12px;">Open Spotify on your phone</h3><p style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:8px;">Open the Spotify app and <strong>play any song for a few seconds</strong>, then come back here.</p><p style="font-size:13px;color:var(--text3);line-height:1.5;margin-bottom:28px;">Don't just open the app — actually press play on something.</p><button class="btn-primary" onclick="retryDevices()" style="max-width:100%;">I've done that — try again</button><button class="btn-secondary" onclick="showScreen('lobby')" style="max-width:100%;margin-top:8px;">Back to lobby</button></div>`;}
+async function startCountdown(){const all=Object.values(submissions).flat();countdownList=shuffleArray(all);currentPosition=countdownList.length;revealedSongs=[];phase='idle';autoAdvanceAbort=false;lastRevealedSong=null;const devices=await getDevices();if(devices.length===0){showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;showNoDeviceScreen();return;}if(devices.length===1){currentDeviceId=devices[0].id;await transfer(currentDeviceId);}else{showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;showDevicePicker(devices);return;}showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;await requestWakeLock();saveSession();await playCinematicIntro();}
+function showNoDeviceScreen(){document.getElementById('countdown-content').innerHTML=`<div style="text-align:center;max-width:320px;animation:fadeUp 0.5s ease-out;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.5" style="margin-bottom:16px;"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg><h3 style="font-size:18px;margin-bottom:12px;">Open Spotify and play a song</h3><p style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:8px;">We need Spotify actively playing music to connect. Open the Spotify app, <strong>play any song and keep it playing</strong> — don't pause it — then come back here.</p><p style="font-size:13px;color:var(--text3);line-height:1.5;margin-bottom:28px;">The song needs to be actively playing, not paused. We'll take over playback from here.</p><button class="btn-primary" onclick="retryDevices()" style="max-width:100%;">It's playing — try again</button><button class="btn-secondary" onclick="showScreen('lobby')" style="max-width:100%;margin-top:8px;">Back to lobby</button></div>`;}
 function showDevicePicker(devices){document.getElementById('countdown-content').innerHTML=`<div style="text-align:center;max-width:320px;width:100%;animation:fadeUp 0.5s ease-out;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.5" style="margin-bottom:12px;"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg><h3 style="font-size:18px;margin-bottom:4px;">Where should we play?</h3><p style="font-size:13px;color:var(--text3);margin-bottom:24px;">Pick which device plays the music</p><div style="display:flex;flex-direction:column;gap:8px;">${devices.map(d=>`<button onclick="selectDevice('${d.id}')" style="display:flex;align-items:center;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:inherit;font-size:15px;cursor:pointer;text-align:left;width:100%;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">${d.type==='Smartphone'?'<rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/>':d.type==='Computer'?'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>':'<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14"/>'}</svg><div><div style="font-weight:600;">${d.name}</div><div style="font-size:12px;color:var(--text3);">${d.type}${d.is_active?' · Active':''}</div></div></button>`).join('')}</div></div>`;}
-async function retryDevices(){const d=await getDevices();if(d.length===0){alert("Still no devices found. Make sure Spotify is open and you've played a song recently.");return;}currentDeviceId=d[0].id;await transferPlayback(currentDeviceId);await requestWakeLock();saveSession();await playCinematicIntro();}
-async function selectDevice(id){currentDeviceId=id;await transferPlayback(id);await requestWakeLock();saveSession();await playCinematicIntro();}
-async function playCinematicIntro(){const c=document.getElementById('countdown-content');const names=players.map(p=>p.name).join(' · ');const t=countdownList.length;c.innerHTML=`<div class="intro-screen"><div class="intro-text" style="margin-bottom:8px;">${countdownName.toUpperCase()}</div><div class="intro-names">${names}</div><div style="font-size:14px;color:var(--text2);margin-bottom:40px;">${t} songs. Only one can be #1.<br>None of them deserve it.</div><div class="intro-text" style="animation:pulse 1.5s infinite;">STARTING IN...</div></div>`;speakDJ(`Welcome to ${countdownName}. ${t} songs. ${players.length} players. Only one song can be number 1. And whoever gets it absolutely does not deserve it. Let's go.`);await sleep(3000);for(let i=5;i>=1;i--){c.innerHTML=`<div class="intro-screen"><div class="intro-big-number">${i}</div></div>`;await sleep(800);}c.innerHTML=`<div class="intro-screen"><div class="announce-number" style="font-size:60px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">LET'S GO</div></div>`;await sleep(1000);autoAdvance();}
-async function autoAdvance(){if(autoAdvanceAbort)return;if(currentPosition<=0){phase='finished';renderCountdownState();saveSession();releaseWakeLock();return;}phase='announcing';const idx=currentPosition-1;const song=countdownList[idx];const script=djScripts[countdownList.length-currentPosition]||getDJScript(currentPosition,song,song.submittedBy);renderCountdownState();saveSession();await speakDJ(script);if(autoAdvanceAbort)return;await sleep(500);phase='playing';isPaused=false;revealedSongs.push(song);renderCountdownState();saveSession();try{await playSong(song.uri,currentDeviceId);}catch(e){}startProgressPolling();await waitForSongEnd();if(autoAdvanceAbort)return;currentPosition--;stopProgressPolling();autoAdvance();}
-function startProgressPolling(){stopProgressPolling();progressInterval=setInterval(async()=>{if(phase!=='playing')return;const s=await getPlaybackState();if(s&&s.item){const pct=(s.progress_ms/s.item.duration_ms)*100;const el=formatTime(s.progress_ms),tot=formatTime(s.item.duration_ms);const f=document.getElementById('progress-fill'),te=document.getElementById('progress-elapsed'),tt=document.getElementById('progress-total');if(f)f.style.width=pct+'%';if(te)te.textContent=el;if(tt)tt.textContent=tot;}},2000);}
+async function retryDevices(){const d=await getDevices();if(d.length===0){alert("Still no devices found. Make sure a song is actively playing in Spotify (not paused), then try again.");return;}currentDeviceId=d[0].id;await transfer(currentDeviceId);await requestWakeLock();saveSession();await playCinematicIntro();}
+async function selectDevice(id){currentDeviceId=id;await transfer(id);await requestWakeLock();saveSession();await playCinematicIntro();}
+
+/* ═══ CINEMATIC INTRO ═══ */
+async function playCinematicIntro(){const c=document.getElementById('countdown-content');const names=players.map(p=>p.name).join(' · ');const t=countdownList.length;c.innerHTML=`<div class="intro-screen"><div class="intro-text" style="margin-bottom:8px;">${countdownName.toUpperCase()}</div><div class="intro-names">${names}</div><div style="font-size:14px;color:var(--text2);margin-bottom:40px;">${t} songs. Only one can be #1.<br>None of them deserve it.</div><div class="intro-text">YOUR COUNTDOWN BEGINS IN...</div></div>`;await sleep(2500);for(let i=5;i>=1;i--){c.innerHTML=`<div class="intro-screen"><div class="intro-big-number">${i}</div></div>`;await sleep(800);}c.innerHTML=`<div class="intro-screen"><div class="announce-number" style="font-size:60px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">LET'S GO</div></div>`;await sleep(1000);autoAdvance();}
+
+/* ═══ AUTO-ADVANCE (no TTS, reveal AFTER play) ═══ */
+async function autoAdvance(){if(autoAdvanceAbort||currentPosition<=0){if(currentPosition<=0){phase='finished';renderCountdownState();saveSession();releaseWakeLock();}return;}
+// If there was a previous song, show "that was..." wrapup
+if(lastRevealedSong){phase='wrapup';renderCountdownState();await sleep(3500);}
+if(autoAdvanceAbort)return;
+// Show the number announcement (no song name yet!)
+phase='announcing';renderCountdownState();saveSession();await sleep(2500);
+if(autoAdvanceAbort)return;
+// Start playing the song
+const song=countdownList[currentPosition-1];phase='playing';isPaused=false;revealedSongs.push(song);lastRevealedSong=song;renderCountdownState();saveSession();
+try{await play(song.uri,currentDeviceId);}catch(e){console.error('Play error:',e);}
+startProgressPolling();await waitForSongEnd();
+if(autoAdvanceAbort)return;
+currentPosition--;stopProgressPolling();
+autoAdvance();}
+
+function startProgressPolling(){stopProgressPolling();progressInterval=setInterval(async()=>{if(phase!=='playing')return;const s=await getState();if(s&&s.item){const pct=(s.progress_ms/s.item.duration_ms)*100;const el=fmt(s.progress_ms),tot=fmt(s.item.duration_ms);const f=document.getElementById('progress-fill'),te=document.getElementById('progress-elapsed'),tt=document.getElementById('progress-total');if(f)f.style.width=pct+'%';if(te)te.textContent=el;if(tt)tt.textContent=tot;}},2000);}
 function stopProgressPolling(){if(progressInterval){clearInterval(progressInterval);progressInterval=null;}}
-function formatTime(ms){const s=Math.floor(ms/1000);return`${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;}
-async function waitForSongEnd(){return new Promise(resolve=>{const check=async()=>{if(phase!=='playing'||autoAdvanceAbort){resolve();return;}const s=await getPlaybackState();if(!s||!s.is_playing){if(isPaused){setTimeout(check,2000);return;}await sleep(1000);resolve();return;}if(s.item&&s.progress_ms>=s.item.duration_ms-2000){await sleep(2500);resolve();return;}setTimeout(check,3000);};setTimeout(check,5000);});}
-async function skipToNextSong(){stopProgressPolling();autoAdvanceAbort=true;window.speechSynthesis?.cancel();await pausePlayback();phase='idle';isPaused=false;await sleep(300);currentPosition--;autoAdvanceAbort=false;if(currentPosition<=0){phase='finished';renderCountdownState();saveSession();releaseWakeLock();return;}autoAdvance();}
-async function replayCurrentSong(){const s=countdownList[currentPosition-1];if(s){await playSong(s.uri,currentDeviceId);isPaused=false;updatePlayPauseIcon();}}
-async function togglePlayPause(){if(isPaused){const s=countdownList[currentPosition-1];if(s)await playSong(s.uri,currentDeviceId);isPaused=false;}else{await pausePlayback();isPaused=true;}updatePlayPauseIcon();}
+function fmt(ms){const s=Math.floor(ms/1000);return`${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;}
+async function waitForSongEnd(){return new Promise(resolve=>{const check=async()=>{if(phase!=='playing'||autoAdvanceAbort){resolve();return;}const s=await getState();if(!s||!s.is_playing){if(isPaused){setTimeout(check,2000);return;}await sleep(1000);resolve();return;}if(s.item&&s.progress_ms>=s.item.duration_ms-2000){await sleep(2500);resolve();return;}setTimeout(check,3000);};setTimeout(check,5000);});}
+
+/* ═══ TRANSPORT CONTROLS ═══ */
+async function skipToNextSong(){stopProgressPolling();autoAdvanceAbort=true;await pause();phase='idle';isPaused=false;await sleep(300);currentPosition--;autoAdvanceAbort=false;if(currentPosition<=0){phase='finished';lastRevealedSong=null;renderCountdownState();saveSession();releaseWakeLock();return;}autoAdvance();}
+async function replayCurrentSong(){const s=countdownList[currentPosition-1];if(s){await play(s.uri,currentDeviceId);isPaused=false;updatePlayPauseIcon();}}
+async function togglePlayPause(){if(isPaused){const s=countdownList[currentPosition-1];if(s)await play(s.uri,currentDeviceId);isPaused=false;}else{await pause();isPaused=true;}updatePlayPauseIcon();}
 function updatePlayPauseIcon(){const b=document.getElementById('play-pause-btn');if(!b)return;b.innerHTML=isPaused?'<svg viewBox="0 0 24 24"><use href="#icon-play"/></svg>':'<svg viewBox="0 0 24 24"><use href="#icon-pause"/></svg>';}
-function renderCountdownState(){const c=document.getElementById('countdown-content');if(phase==='idle'&&countdownList.length>0){const r=revealedSongs.length,t=countdownList.length;c.innerHTML=`<div class="countdown-progress"><div class="track"><div class="fill" style="width:${(r/t)*100}%"></div></div><div class="label">${r} of ${t} revealed</div></div><button class="big-play" onclick="autoAdvanceAbort=false;autoAdvance();"><svg viewBox="0 0 24 24"><use href="#icon-play"/></svg></button><div class="reveal-hint">TAP TO RESUME</div>`;}else if(phase==='announcing'){const s=countdownList[currentPosition-1];const sc=djScripts[countdownList.length-currentPosition]||'';c.innerHTML=`<div class="announce-label">COMING IN AT</div><div class="announce-number">#${currentPosition}</div><div class="dj-script">"${sc}"</div>`;}else if(phase==='playing'){const s=countdownList[currentPosition-1];const art=s.album?.images?.[0]?.url||'';c.innerHTML=`<div class="now-playing"><div class="np-position">#${currentPosition}</div><div class="np-art">${art?`<img src="${art}">`:'<div style="width:100%;height:100%;background:var(--surface2);display:flex;align-items:center;justify-content:center;"><svg width="48" height="48" viewBox="0 0 24 24" fill="var(--text3)"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg></div>'}</div><div class="np-title">${s.name}</div><div class="np-artist">${s.artists.map(a=>a.name).join(', ')}</div><div class="np-submitter"><span class="avatar-sm" style="background:${s.submittedByColor};">${s.submittedByInitials}</span><span>${s.submittedBy}'s pick</span></div><div class="playback-controls"><button class="ctrl-btn" onclick="replayCurrentSong()"><svg viewBox="0 0 24 24"><use href="#icon-skip-prev"/></svg></button><button class="ctrl-btn play" id="play-pause-btn" onclick="togglePlayPause()"><svg viewBox="0 0 24 24"><use href="#icon-pause"/></svg></button><button class="ctrl-btn" onclick="skipToNextSong()"><svg viewBox="0 0 24 24"><use href="#icon-skip-next"/></svg></button></div><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div><div class="progress-times"><span id="progress-elapsed">0:00</span><span id="progress-total">0:00</span></div></div></div>`;}else if(phase==='finished')renderFinished();renderTicker();}
-function renderTicker(){const tk=document.getElementById('revealed-ticker');if(revealedSongs.length===0||phase==='finished'){tk.innerHTML='';return;}tk.innerHTML=[...revealedSongs].reverse().slice(0,6).map((s,i)=>{const pos=countdownList.length-(revealedSongs.length-1-i);return`<div class="ticker-chip" style="opacity:${1-i*0.12}"><span class="pos">#${pos}</span><span class="name">${s.name}</span></div>`;}).join('');}
+
+/* ═══ RENDER ═══ */
+function renderCountdownState(){const c=document.getElementById('countdown-content');
+if(phase==='idle'&&countdownList.length>0){
+  // Resume screen with history
+  const r=revealedSongs.length,t=countdownList.length;
+  let historyHTML='';
+  if(revealedSongs.length>0){
+    historyHTML=`<div class="resume-history"><div class="resume-history-header">PREVIOUSLY REVEALED</div>${[...revealedSongs].reverse().map((s,i)=>{const pos=t-(revealedSongs.length-1-i);const art=s.album?.images?.[2]?.url||s.album?.images?.[0]?.url||'';return`<div class="resume-history-item"><span class="rh-pos">#${pos}</span><div class="rh-art">${art?`<img src="${art}">`:''}</div><div class="rh-meta"><div class="rh-title">${s.name}</div><div class="rh-artist">${s.artists.map(a=>a.name).join(', ')}</div></div><span class="avatar-sm" style="background:${s.submittedByColor};font-size:8px;">${s.submittedByInitials}</span></div>`;}).join('')}</div>`;
+  }
+  c.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;width:100;">
+    <button class="big-play" onclick="autoAdvanceAbort=false;autoAdvance();"><svg viewBox="0 0 24 24"><use href="#icon-play"/></svg></button>
+    <div class="reveal-hint" style="margin-bottom:24px;">TAP TO ${r>0?'RESUME':'START'}</div>
+    <div class="countdown-progress"><div class="track"><div class="fill" style="width:${(r/t)*100}%"></div></div><div class="label">${r} of ${t} revealed</div></div>
+    ${historyHTML}
+    <button class="btn-secondary" onclick="confirmNewCountdown()" style="margin-top:20px;max-width:280px;font-size:13px;">Start New Countdown</button>
+  </div>`;
+}else if(phase==='wrapup'&&lastRevealedSong){
+  const s=lastRevealedSong;const art=s.album?.images?.[0]?.url||'';
+  c.innerHTML=`<div style="text-align:center;animation:fadeUp 0.4s ease-out;">
+    <div class="np-art" style="width:140px;height:140px;margin:0 auto 20px;">${art?`<img src="${art}">`:''}</div>
+    <div style="font-size:14px;color:var(--text3);margin-bottom:6px;">That was</div>
+    <div style="font-size:20px;font-weight:700;margin-bottom:4px;">${s.name}</div>
+    <div style="font-size:15px;color:var(--text2);margin-bottom:12px;">${s.artists.map(a=>a.name).join(', ')}</div>
+    <div class="np-submitter"><span class="avatar-sm" style="background:${s.submittedByColor};">${s.submittedByInitials}</span><span>Chosen by ${s.submittedBy}</span></div>
+  </div>`;
+}else if(phase==='announcing'){
+  c.innerHTML=`<div style="text-align:center;"><div class="announce-label">NEXT UP</div><div class="announce-number">#${currentPosition}</div></div>`;
+}else if(phase==='playing'){
+  const s=countdownList[currentPosition-1];const art=s.album?.images?.[0]?.url||'';
+  // During play, show album art + position but NOT song name (surprise!)
+  c.innerHTML=`<div class="now-playing">
+    <div class="np-position">#${currentPosition}</div>
+    <div class="np-art">${art?`<img src="${art}">`:'<div style="width:100%;height:100%;background:var(--surface2);display:flex;align-items:center;justify-content:center;"><svg width="48" height="48" viewBox="0 0 24 24" fill="var(--text3)"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/></svg></div>'}</div>
+    <div class="np-title">${s.name}</div>
+    <div class="np-artist">${s.artists.map(a=>a.name).join(', ')}</div>
+    <div class="np-submitter"><span class="avatar-sm" style="background:${s.submittedByColor};">${s.submittedByInitials}</span><span>${s.submittedBy}'s pick</span></div>
+    <div class="playback-controls">
+      <button class="ctrl-btn" onclick="replayCurrentSong()"><svg viewBox="0 0 24 24"><use href="#icon-skip-prev"/></svg></button>
+      <button class="ctrl-btn play" id="play-pause-btn" onclick="togglePlayPause()"><svg viewBox="0 0 24 24"><use href="#icon-pause"/></svg></button>
+      <button class="ctrl-btn" onclick="skipToNextSong()"><svg viewBox="0 0 24 24"><use href="#icon-skip-next"/></svg></button>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div><div class="progress-times"><span id="progress-elapsed">0:00</span><span id="progress-total">0:00</span></div></div>
+  </div>`;
+}else if(phase==='finished')renderFinished();
+renderTicker();}
+
+function renderTicker(){const tk=document.getElementById('revealed-ticker');if(revealedSongs.length===0||phase==='finished'||phase==='idle'){tk.innerHTML='';return;}tk.innerHTML=[...revealedSongs].reverse().slice(0,6).map((s,i)=>{const pos=countdownList.length-(revealedSongs.length-1-i);return`<div class="ticker-chip" style="opacity:${1-i*0.12}"><span class="pos">#${pos}</span><span class="name">${s.name}</span></div>`;}).join('');}
+
 function renderFinished(){const c=document.getElementById('countdown-content');const w=countdownList[0];c.innerHTML=`<div class="finished-wrap"><div style="margin-bottom:12px;"><svg width="48" height="48" viewBox="0 0 24 24" fill="var(--accent)"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg></div><div class="finished-label">NUMBER ONE</div><div class="finished-title">${w.name}</div><div class="finished-artist">${w.artists.map(a=>a.name).join(', ')}</div><div class="finished-winner"><span class="avatar-sm" style="background:${w.submittedByColor};">${w.submittedByInitials}</span>${w.submittedBy} takes #1!</div><div class="finished-list"><div class="finished-list-header">FULL COUNTDOWN</div>${countdownList.map((s,i)=>`<div class="finished-item ${i===0?'winner':''}"><span class="finished-pos ${i===0?'gold':''}">#${i+1}</span><div class="finished-song"><div class="finished-song-t">${s.name}</div><div class="finished-song-a">${s.artists.map(a=>a.name).join(', ')}</div></div><span class="avatar-sm" style="background:${s.submittedByColor};font-size:8px;">${s.submittedByInitials}</span></div>`).join('')}</div><button class="btn-secondary" onclick="resetAll()" style="margin-top:20px;max-width:100%;">New Countdown</button></div>`;}
+
+function confirmNewCountdown(){if(confirm('Start a new countdown? Your current one will be lost.')){resetAll();}}
+
+/* ═══ HISTORY ═══ */
 function toggleHistory(){const p=document.getElementById('history-panel'),o=document.getElementById('history-overlay');if(p.classList.contains('open')){p.classList.remove('open');o.classList.remove('open');}else{renderHistory();p.classList.add('open');o.classList.add('open');}}
-function renderHistory(){const l=document.getElementById('history-list');if(revealedSongs.length===0){l.innerHTML='<p style="text-align:center;color:var(--text3);padding:40px 0;">No songs revealed yet</p>';return;}l.innerHTML=[...revealedSongs].map((s,i)=>{const pos=countdownList.length-i;const art=s.album?.images?.[2]?.url||s.album?.images?.[0]?.url||'';return`<div class="history-item"><span class="history-pos">#${pos}</span><div class="history-art">${art?`<img src="${art}">`:'<div style="width:100%;height:100%;background:var(--surface2);"></div>'}</div><div class="history-meta"><div class="history-song-title">${s.name}</div><div class="history-song-artist">${s.artists.map(a=>a.name).join(', ')}</div></div><span style="display:flex;align-items:center;"><span class="avatar-sm" style="background:${s.submittedByColor};font-size:8px;">${s.submittedByInitials}</span></span></div>`;}).join('');}
+function renderHistory(){const l=document.getElementById('history-list');if(revealedSongs.length===0){l.innerHTML='<p style="text-align:center;color:var(--text3);padding:40px 0;">No songs revealed yet</p>';return;}l.innerHTML=[...revealedSongs].map((s,i)=>{const pos=countdownList.length-i;const art=s.album?.images?.[2]?.url||s.album?.images?.[0]?.url||'';return`<div class="history-item"><span class="history-pos">#${pos}</span><div class="history-art">${art?`<img src="${art}">`:''}</div><div class="history-meta"><div class="history-song-title">${s.name}</div><div class="history-song-artist">${s.artists.map(a=>a.name).join(', ')}</div></div><span style="display:flex;align-items:center;"><span class="avatar-sm" style="background:${s.submittedByColor};font-size:8px;">${s.submittedByInitials}</span></span></div>`;}).join('');}
+
+/* ═══ UTILS ═══ */
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-function resetAll(){players=players.length>0?[players[0]]:[];submissions={};countdownList=[];revealedSongs=[];currentPosition=0;phase='idle';djScripts=[];autoAdvanceAbort=false;clearSession();stopProgressPolling();releaseWakeLock();countdownName='Road Trip Shuffle';document.getElementById('countdown-name-btn').textContent=countdownName;document.getElementById('songs-per-user').value=5;songsPerUser=5;renderLobby();showScreen('lobby');}
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&(phase==='playing'||phase==='announcing')){pausePlayback();isPaused=true;autoAdvanceAbort=true;saveSession();}});
+function resetAll(){players=players.length>0?[players[0]]:[];submissions={};countdownList=[];revealedSongs=[];currentPosition=0;phase='idle';lastRevealedSong=null;autoAdvanceAbort=false;clearSession();stopProgressPolling();releaseWakeLock();countdownName='Road Trip Shuffle';document.getElementById('countdown-name-btn').textContent=countdownName;document.getElementById('songs-per-user').value=5;songsPerUser=5;renderLobby();showScreen('lobby');}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&(phase==='playing'||phase==='announcing'||phase==='wrapup')){pause();isPaused=true;autoAdvanceAbort=true;saveSession();}});
 window.addEventListener('beforeunload',()=>{if(phase!=='idle'||countdownList.length>0)saveSession();});
-async function init(){if('speechSynthesis' in window)window.speechSynthesis.getVoices();if(window.location.search.includes('code=')){const ok=await handleCallback();if(ok){spotifyUser=await getSpotifyUser();if(spotifyUser){const s=loadSession();if(s){resumeSession(s);return;}initLobby();return;}}}const saved=localStorage.getItem('spotify_token');const time=parseInt(localStorage.getItem('spotify_token_time')||'0');if(saved&&(Date.now()-time)<3500000){accessToken=saved;spotifyUser=await getSpotifyUser();if(spotifyUser){updateHomeButton();const s=loadSession();if(s){resumeSession(s);return;}initLobby();return;}}showScreen('home');}
+
+function resumeSession(s){players=s.players;songsPerUser=s.songsPerUser;countdownName=s.countdownName;submissions=s.submissions;countdownList=s.countdownList;revealedSongs=s.revealedSongs;currentPosition=s.currentPosition;phase=s.phase;lastRevealedSong=s.lastRevealedSong||null;if(['announcing','playing','wrapup'].includes(phase))phase='idle';if(countdownList.length>0){showScreen('countdown');document.getElementById('countdown-brand').textContent=countdownName;renderCountdownState();requestWakeLock();}else if(phase==='finished'){showScreen('countdown');renderCountdownState();}else{document.getElementById('songs-per-user').value=songsPerUser;document.getElementById('countdown-name-btn').textContent=countdownName;renderLobby();showScreen('lobby');}}
+
+/* ═══ INIT ═══ */
+async function init(){if(window.location.search.includes('code=')){const ok=await handleCallback();if(ok){spotifyUser=await getUser();if(spotifyUser){const s=loadSession();if(s){resumeSession(s);return;}initLobby();return;}}}const saved=localStorage.getItem('spotify_token');const time=parseInt(localStorage.getItem('spotify_token_time')||'0');if(saved&&(Date.now()-time)<3500000){accessToken=saved;spotifyUser=await getUser();if(spotifyUser){updateHomeButton();const s=loadSession();if(s){resumeSession(s);return;}initLobby();return;}}showScreen('home');}
 init();
 </script>
 </body>
